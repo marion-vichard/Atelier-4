@@ -1,0 +1,169 @@
+---
+title: "Atelier 4"
+author: "Marion VICHARD"
+date: "13/11/2019"
+output:
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Option 1 (taille)
+
+```{r}
+nutriage <- read.csv("~/Desktop/Atelier4-master/nutriage.csv")
+names(nutriage)
+```
+```{r}
+hist(nutriage$taille)
+summary(nutriage$taille)
+```
+
+Hypothèse : taille $\sim N(\mu,\sigma)$ le problème est $\Pr(taille < 0) >0$
+
+```{r}
+mean(nutriage$taille) 
+sd(nutriage$taille)
+```
+
+On va calculer $\Pr(taille < 0)$ avec $taille \sim N(163.9602, 9.003368)$
+
+```{r}
+pnorm(0,mean(nutriage$taille),sd(nutriage$taille))
+```
+
+## Option 2 (taille)
+
+Soit $taille=e^X$ avec $X \sim N(mu, \sigma).$ Alors $X = ln(taille).$
+
+```{r}
+X <- log(nutriage$taille)
+hist(X)
+summary(X)
+Q <- seq(from=0, to=1, by=0.1)
+Q
+qnorm(Q)
+
+```
+
+qq plot 
+
+```{r}
+Z <- (X-mean(X))/sd(X)
+n <- length(Z) 
+n 
+Normal <- rnorm(n)
+qqplot(Normal,Z,xlim=c(-3,3), ylim=c(-3,3))
+par (new=T)
+plot(Z,Z,type="l",col="red",xlim=c(-3,3),ylim=c(-3,3),xlabel="",ylabel="")
+```
+
+
+
+## Option 1 (poids)
+
+```{r}
+nutriage <- read.csv("~/Desktop/Atelier4-master/nutriage.csv")
+names(nutriage)
+```
+
+```{r}
+hist(nutriage$poids)
+summary(nutriage$poids)
+```
+
+Hypothèse : poids $\sim N(\mu,\sigma)$ le problème est $\Pr(poids < 0) >0$
+
+```{r}
+mean(nutriage$poids) 
+sd(nutriage$poids)
+```
+
+On va calculer $\Pr(poids < 0)$ avec $poids \sim N(163.9602, 9.003368)$
+
+```{r}
+pnorm(0,mean(nutriage$poids),sd(nutriage$poids))
+```
+
+## Option 2 (poids)
+
+Soit $poids=e^X$ avec $X \sim N(mu, \sigma).$ Alors $X = ln(poids).$
+
+```{r}
+X <- log(nutriage$poids)
+hist(X)
+summary(X)
+Q <- seq(from=0, to=1, by=0.1)
+Q
+qnorm(Q)
+
+```
+
+qq plot 
+
+```{r}
+Z <- (X-mean(X))/sd(X)
+n <- length(Z) 
+n 
+Normal <- rnorm(n)
+qqplot(Normal,Z,xlim=c(-3,3),ylim=c(-3,3),xlab="Normal",ylab="log(poids)")
+par (new=T)
+plot(Z,Z,type="l",col="red",xlim=c(-3,3),ylim=c(-3,3),xlab="",ylab="")
+```
+
+Cafe 
+
+```{r}
+table(nutriage$cafe)
+mean(nutriage$cafe)
+var(nutriage$cafe)
+lambda <- (mean(nutriage$cafe)+var(nutriage$cafe))/2
+lambda 
+simul <- rpois(1000,lambda)
+table(simul)
+```
+
+Thé 
+
+```{r}
+table(nutriage$the)
+mean(nutriage$the)
+var(nutriage$the)
+lambda <- (mean(nutriage$the)+var(nutriage$the))/2
+lambda 
+simul <- rpois(1000,lambda)
+table(simul)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
